@@ -5,13 +5,16 @@ import SunBaby from './assets/sun-eyes.png'
 import BlueBaby from './assets/blue-eyes.png'
 import GlowingBaby from './assets/glowing-eyes.png'
 
-// is there a way we could associate eye color string values with images? 
+// is there a way we could associate eye color string values with images?
 // perhaps so we could do something along the lines of `eyeColorMapper['blue'] and get back the right image?`
 
 export default class BabyHog extends Component {
 
   constructor(props) {
     super(props)
+    this.state={
+      weight: 100
+    }
   }
 
   changeWeight = (e) => {
@@ -22,25 +25,41 @@ export default class BabyHog extends Component {
     })
   }
 
+  // handleClick =(change) => {
+  //   this.setState({
+  //     weight: this.state.weight + change
+  //   })
+  // }
+
   render() {
+
+    const piggy = this.props.piggy
+    let piggyPic = normalBaby
+    const eyeColor = this.props.eyeColor
+
+    if(eyeColor === 'blue')piggyPic = BlueBaby
+    else if(eyeColor === 'sun')piggyPic = SunBaby
+    else if (eyeColor === 'glowing') piggyPic = GlowingBaby
+    // eyeColor === 'blue' ? piggyPic = BlueBaby: eyeColor === 'sun' ? piggyPic = SunBaby : piggyPic = GlowingBaby
+
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
-          
-        <Button name="+">
+        <h1>Name {piggy.name}</h1>
+        <h3>Weight: {this.state.weight}</h3>
+        <h3>Hobby: {piggy.hobby}</h3>
+        <h4>Eye Color:{this.props.eyeColor}</h4>
+
+        <Button onClick={this.changeWeight}name="+">
           Increase Weight
         </Button>
-        <Button name="-">
+        <Button onClick={this.changeWeight}name="-">
           Decrease Weight
         </Button>
 
         <div className="hb-wrap">
-          <img src={normalBaby} style={{height: '200px'}} alt="MasterBlasterJrJr" />
+          <img src={piggyPic} style={{height: '200px'}} alt="MasterBlasterJrJr" />
         </div>
-        
+
       </li>
     )
   }
