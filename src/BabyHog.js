@@ -12,6 +12,15 @@ export default class BabyHog extends Component {
 
   constructor(props) {
     super(props)
+
+    const genetics = this.props.baby
+
+    this.state = {
+      name: genetics.name,
+      hobby: genetics.hobby,
+      eyeColor: genetics.eyeColor,
+      weight: 120
+    }
   }
 
   changeWeight = (e) => {
@@ -23,24 +32,34 @@ export default class BabyHog extends Component {
   }
 
   render() {
+    let pigImg = normalBaby
+
+    switch(this.state.eyeColor) {
+      case 'blue': pigImg = BlueBaby
+      break
+      case 'sun': pigImg = SunBaby
+      break
+      case 'glowing': pigImg = GlowingBaby
+      break
+    }
+
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
+        <h1>Name: {this.state.name}</h1>
+        <h3>Weight: {this.state.weight}</h3>
+        <h3>Hobby: {this.state.hobby}</h3>
+        <h4>Eye Color: {this.state.eyeColor}</h4>
           
-        <Button name="+">
+        <Button onClick={this.changeWeight} name="+">
           Increase Weight
         </Button>
-        <Button name="-">
+        <Button onClick={this.changeWeight} name="-">
           Decrease Weight
         </Button>
 
         <div className="hb-wrap">
-          <img src={normalBaby} style={{height: '200px'}} alt="MasterBlasterJrJr" />
+          <img src={pigImg} style={{height: '200px'}} alt="MasterBlasterJrJr" />
         </div>
-        
       </li>
     )
   }
